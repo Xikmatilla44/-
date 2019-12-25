@@ -6,12 +6,14 @@ import BootstrapVue from 'bootstrap-vue'
 
 Vue.use(BootstrapVue)
 Object.defineProperty(Vue.prototype, '$axios', {value: axios});
+import router from "./route/router";
 
 Vue.config.productionTip = false;
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 new Vue({
-  render: h => h(App),
-  store
+    render: h => h(App),
+    store,
+    router
 }).$mount('#app')
