@@ -27,10 +27,31 @@
 </template>
 
 <script>
-  export default {
+
+    import {mapActions, mapState} from "vuex";
+
+    export default {
+
+        computed: {
+
+            ...mapState('ObjectModule', [
+                'listStatus',
+            ])
+        },
+        methods: {
+            ...mapActions('ObjectModule', [
+                'PushCreate',
+            ]),
+
+        },
 
 
-  }
+        created() {
+
+            this.PushCreate("salomar")
+        }
+
+    }
 </script>
 <style lang="scss" scoped>
 
