@@ -32,7 +32,6 @@
 
 <script>
 
-    import {mapActions, mapState} from "vuex";
 
     export default {
         data() {
@@ -41,35 +40,13 @@
                 activeIndex2: '1'
             };
         },
-        computed: {
 
-            ...mapState('ObjectModule', [
-                'listStatus', 'listCard'
-            ])
-        },
         methods: {
-            ...mapActions('ObjectModule', [
-                'PushCreate', 'getAllCardsStore'
-            ]),
 
-            handleSelect(key, keyPath) {
-                console.log(key, keyPath);
-            }
 
         },
 
 
-        created() {
-
-
-            this.PushCreate("salomar");
-            this.getAllCardsStore();
-
-            setTimeout(() => {
-                /* eslint-disable */
-                console.log(this.listCard)
-            }, 5000);
-        }
 
     }
 </script>

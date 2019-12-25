@@ -6,6 +6,8 @@ const ObjectService = {
 
     getAllCards() {
 
+        let arr = new Array();
+
         return axios.get(`https://api.jqestate.ru/v1/properties/country`)
             .then(response => {
                 debugger
@@ -14,7 +16,9 @@ const ObjectService = {
                 }
             })
             .catch(e => {
-                return e;
+                arr.push(...e);
+
+                return "Errore"
             });
 
     },
