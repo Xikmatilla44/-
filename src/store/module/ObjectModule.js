@@ -2,6 +2,7 @@ import ObjectService from "../service/ObjectService";
 
 const state = {
     listStatus: [],
+    listCard: [],
 
 };
 const getters = {};
@@ -14,11 +15,20 @@ const actions = {
         commit('Create', res);
     },
 
+    async getAllCardsStore({commit}) {
+        const result = await ObjectService.getAllCards();
+        commit('getStore', result);
+    },
+
 };
 
 
 const mutations = {
 
+   getStore(state, result){
+       debugger
+        state.listCard = result;
+    },
 
     Create(state, res){
         // debugger

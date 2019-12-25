@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <HelloWorld />
+    <app-navbar/>
   </div>
 </template>
 
@@ -10,7 +10,7 @@ import HelloWorld from './components/HelloWorld.vue'
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    'app-navbar':HelloWorld
   }
 }
 </script>
