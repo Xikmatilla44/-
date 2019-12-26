@@ -18,6 +18,12 @@
                        v-for="item in dataCards"
                 >
                     <b-card
+                            id="my-table"
+                            :items="dataCards"
+                            :per-page="perPage"
+                            :current-page="currentPage"
+
+
                             :title="item.location.districtName"
                             img-src="https://picsum.photos/600/300/?image=25"
                             img-alt="Image"
@@ -42,12 +48,22 @@
         </div>
 
 
+
+        <div>
+            <p>Current page: {{ currentPage }}</p>
+            <v-pagination v-model="currentPage"
+                          aria-controls="my-table"
+                          :page-count="limit"></v-pagination>
+        </div>
+
+
     </div>
 
 </template>
 
 <script>
     // Import component
+    import vPagination from 'vue-plain-pagination'
     import Loading from 'vue-loading-overlay';
     // Import stylesheet
     import 'vue-loading-overlay/dist/vue-loading.css';
@@ -58,15 +74,30 @@
 
 
         components: {
+            vPagination,
             Loading
         },
 
         data() {
             return {
-                isLoading: false,
-                dataCards: [],
-                perPage: 3,
+                limit:32,
+                totalCard:[],
+                perPage: 10,
                 currentPage: 1,
+                bootstrapPaginationClasses: {
+                    ul: 'pagination',
+                    li: 'page-item',
+                    liActive: 'active',
+                    liDisable: 'disabled',
+                    button: 'page-link'
+                },
+                paginationAnchorTexts: {
+                    first: 'First',
+                    prev: 'Previous',
+                    next: 'Next',
+                    last: 'Last'
+                },  isLoading: false,
+                dataCards: [],
                 statusMassage: ''
             }
         },
@@ -74,35 +105,43 @@
 
         computed: {
             ...mapState('ObjectModule', [
-                'listStatus', 'listCard'
-            ])
+                'listStatus', 'listCard','firstList'
+            ]),
+
+
         },
 
         methods: {
 
             ...mapActions('ObjectModule', [
-                'PushCreate', 'getAllCardsStore'
+                'PushCreate', 'getAllCardsStore','getPaginationStore','getSecondsPage'
             ]),
+
+
 
         },
 
         created() {
             this.isLoading = true;
             debugger
+            this.getPaginationStore();
             this.getAllCardsStore();
+
 
         },
 
         watch: {
 
-            'listCard': {
+            'firstList': {
                 handler(value) {
                     debugger
                     this.isLoading = false;
-                    if (this.listCard.length === 1) {
+                    if (this.firstList.length === 1) {
                         this.statusMassage = 'Error'
                     } else {
-                        this.dataCards = this.listCard.items.map(list => {
+                        debugger
+                        console.log(this.firstList);
+                        this.dataCards = value.items.map(list => {
                             return {
                                 id: list.id,
                                 location: list.location,
@@ -111,14 +150,42 @@
 
                             };
                         });
-                        console.log(this.dataCards);
+                        this.perPage = value.pagination.limit;
+
 
                     }
                 }
-            }
+            },
+
+            'currentPage': {
+
+                handler(value) {
+                    debugger
+                    this.getSecondsPage(value);
+                    console.log(this.totalCard)
+
+                }
+
+            },
+
+
+            'listCard': {
+
+                handler(value) {
+                    debugger
+                    if (value.length > 0){
+                        this.limit = value.length;
+                    }
+
+                }
+
+            },
+
+
+
+
 
         }
-
 
     }
 </script>

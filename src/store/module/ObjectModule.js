@@ -3,6 +3,7 @@ import ObjectService from "../service/ObjectService";
 const state = {
     listStatus: [],
     listCard: [],
+    firstList:[],
 
 };
 const getters = {};
@@ -15,15 +16,33 @@ const actions = {
         commit('Create', res);
     },
 
+
     async getAllCardsStore({commit}) {
         const result = await ObjectService.getAllCards();
         commit('getStore', result);
+    },
+
+    async getPaginationStore({commit}) {
+        const res = await ObjectService.getPagination();
+        debugger
+        commit('getStorePag', res);
+    },
+
+    async getSecondsPage({commit}, payload) {
+        const res = await ObjectService.getSecondsPage(payload);
+        debugger
+        commit('getStorePag', res);
     },
 
 };
 
 
 const mutations = {
+
+    getStorePag(state, res){
+       debugger
+        state.firstList = res;
+    },
 
    getStore(state, result){
        debugger

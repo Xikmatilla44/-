@@ -11,7 +11,7 @@ export default new Router({
     routes: [
 
         {
-            path: "/cards",
+            path: "/",
             name: "Cards",
             meta: {
                 title: 'продаж'
