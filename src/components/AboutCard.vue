@@ -57,7 +57,7 @@
 
         computed: {
             ...mapState('ObjectModule', [
-                'listStatus', 'listCard','firstList'
+                'listStatus', 'listCard','firstList','closeAbout'
             ]),
 
 
@@ -68,6 +68,26 @@
             ...mapActions('ObjectModule', [
                  'getAllCardsStore', 'getPaginationStore', 'getSecondsPage'
             ]),
+
+            async testFound(){
+                debugger
+
+                setTimeout(()=>{
+                    if (this.CardAbout.length < 1 ){
+                        debugger
+                    this.CardAbout = this.listCard.items.filter((item) =>{
+                        debugger
+                        return item.id == this.id;
+                    });
+                    debugger
+
+                    console.log(this.CardAbout)
+                    this.isLoading = false;
+                    }
+
+                },3000)
+
+            }
         },
 
         created() {
@@ -76,6 +96,7 @@
             this.getAllCardsStore();
           debugger
             this.id = this.$route.params.id;
+          this.testFound();
           console.log(this.id)
         },
 
@@ -84,7 +105,7 @@
 
             handler(value) {
                debugger
-                if (value.items.length > 0){
+                if (this.listCard.items > 0){
                     this.isLoading = false;
                     debugger
                     this.CardAbout = this.listCard.items.filter((item) =>{
@@ -98,7 +119,21 @@
 
             }
 
-            }}
+            },
+
+            'closeAbout': {
+
+                handler(value) {
+                    if (value){
+                        this.CardAbout =[];
+                        this.id=''
+                    }
+
+                }
+
+            }
+
+        }
 
 
 

@@ -31,6 +31,7 @@
 </template>
 
 <script>
+    import {mapActions, mapState} from "vuex";
 
 
     export default {
@@ -41,10 +42,14 @@
             };
         },
 
-        methods: {
 
+        methods: {
+            ...mapActions('ObjectModule', [
+                'closeAbout'
+            ]),
             pushToHome(){
                 this.$router.push('/');
+                this.closeAbout();
 
             }
 

@@ -4,11 +4,19 @@ const state = {
     listStatus: [],
     listCard: [],
     firstList:[],
+    closeAbout:false
 
 };
 const getters = {};
 
 const actions = {
+
+
+    closeAbout({commit}) {
+        commit('closeAb');
+    },
+
+
 
 
     async PushCreate({commit}, payloads) {
@@ -38,6 +46,10 @@ const actions = {
 
 
 const mutations = {
+
+    closeAb(state){
+      state.closeAbout = true;
+    },
 
     getStorePag(state, res){
        debugger
