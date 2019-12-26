@@ -15,14 +15,14 @@
         >
             <b-row>
                 <b-col sm="12" md="6" lg="4" xl="4"
-                       v-for="item in dataCards"
+                       v-for="item in dataCards"  :key="dataCards.id"
                 >
                     <b-card
+
                             id="my-table"
                             :items="dataCards"
                             :per-page="perPage"
                             :current-page="currentPage"
-
                             img-src="https://images.jqestate.ru/PRI2260-5be12c4f-jqestate-2048"
                             img-alt="Image"
                             img-top
@@ -34,6 +34,10 @@
                             <h4>${{item.saleOffer.multiCurrencyPrice.usd}}</h4>
                             <v-icon name="check-square"></v-icon>  {{item.specification.area}}км
                             <v-icon name="home"></v-icon>  {{item.specification.bedrooms}}м
+                           <span @click="pushAbout(item.id)">
+                                <v-icon style="margin-left: 50%; height: 40px" name="more-horizontal"
+                                ></v-icon>
+                           </span>
 
 
                         </b-card-text>
@@ -110,6 +114,12 @@
                 'PushCreate', 'getAllCardsStore','getPaginationStore','getSecondsPage'
             ]),
 
+            pushAbout(value){
+                debugger
+                this.$router.push({ name: "AboutCard", params: { id: value } });
+
+            }
+
 
 
         },
@@ -135,7 +145,6 @@
                         this.statusMassage = 'Error'
                     } else {
                         debugger
-                        console.log(this.firstList);
                         this.dataCards = value.items.map(list => {
                             return {
                                 id: list.id,
@@ -147,6 +156,8 @@
 
                             };
                         });
+                        console.log(this.dataCards);
+
                         this.perPage = value.pagination.limit;
 
 

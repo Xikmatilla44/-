@@ -21,6 +21,14 @@ export default new Router({
                 import("../components/CardsVue")
         },
 
+        {
+            path: "/aboutCard/:id",
+            name: "AboutCard",
+
+            component: () =>
+                import("../components/AboutCard")
+        }
+
 
     ]
 

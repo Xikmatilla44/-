@@ -2,7 +2,7 @@
 
     <div class="navbarmi">
         <b-navbar toggleable="lg" type="dark">
-            <b-navbar-brand ><img src="../../public/logo.jpg"></b-navbar-brand>
+            <b-navbar-brand @click="pushToHome"><img src="../../public/logo.jpg"></b-navbar-brand>
 
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -43,6 +43,10 @@
 
         methods: {
 
+            pushToHome(){
+                this.$router.push('/');
+
+            }
 
         },
 
