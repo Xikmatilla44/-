@@ -11,9 +11,12 @@
             <b-card-text>
                 {{totalCardAbout.location.routeName}} - {{totalCardAbout.location.localityName}}
                 <hr/>
-                {{totalCardAbout.location.regionName}}
+                Место расположения: {{totalCardAbout.location.regionName}}
                 <br/>
-                Price:   eur -  {{totalCardAbout.saleOffer.multiCurrencyPrice.eur}},  usd  -  {{totalCardAbout.saleOffer.multiCurrencyPrice.usd}},  rub  -  {{totalCardAbout.saleOffer.multiCurrencyPrice.rub}},{{totalCardAbout.saleOffer.currency}}
+                Цена:    rub  -  {{totalCardAbout.saleOffer.multiCurrencyPrice.rub}},  eur -  {{totalCardAbout.saleOffer.multiCurrencyPrice.eur}},  usd  -  {{totalCardAbout.saleOffer.multiCurrencyPrice.usd}} ,{{totalCardAbout.saleOffer.currency}}
+               <br/>
+                <span>Удобный</span><span v-for="item in totalCardAbout.equipment">
+                    <li>{{item}}</li></span>
 
             </b-card-text>
         </b-card>
@@ -104,5 +107,11 @@
 </script>
 
 <style scoped>
+
+
+    li{
+        font-family: Arial;
+        color: indigo;
+    }
 
 </style>
