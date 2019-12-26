@@ -3,6 +3,8 @@ import App from './App.vue'
 import store from './store/store'
 import axios from 'axios'
 import BootstrapVue from 'bootstrap-vue'
+import feather from 'vue-icon'
+Vue.use(feather, 'v-icon')
 
 Vue.use(BootstrapVue)
 Object.defineProperty(Vue.prototype, '$axios', {value: axios});

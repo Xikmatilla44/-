@@ -18,4 +18,10 @@ export default {
 </script>
 
 <style>
+
+  .navbarmi{
+    position: sticky;
+    top: 0px;
+    z-index: 1;
+  }
 </style>

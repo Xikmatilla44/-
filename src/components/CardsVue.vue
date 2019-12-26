@@ -1,17 +1,17 @@
 <template>
-    <div>
-        <div class="container">
+    <div >
+        <b-col sm="12">
             <br/>
             <p>Элитная загородная недвижимость > Продажа</p>
             <h2>Элитная недвижимость в Подмосковье</h2>
             <br/>
             <hr>
 
-        </div>
+        </b-col>
 
 
-        <b-container class="bv-example-row"
-                     :class="[isLoading ? 'mbordeer' : '']"
+        <div class="bv-example-row"
+                     :class="[isBack ? 'mbordeer' : '']"
         >
             <b-row>
                 <b-col sm="12" md="6" lg="4" xl="4"
@@ -23,24 +23,31 @@
                             :per-page="perPage"
                             :current-page="currentPage"
 
-
-                            :title="item.location.districtName"
-                            img-src="https://picsum.photos/600/300/?image=25"
+                            img-src="https://images.jqestate.ru/PRI2260-5be12c4f-jqestate-2048"
                             img-alt="Image"
                             img-top
                             tag="article"
                             class="mb-2"
                     >
                         <b-card-text>
-                            <li>{{item.saleOffer.price}}</li>
-                            <li>{{item.location.countryName}}</li>
-                            <li>{{item.location.localityName}}</li>
-                            <li>{{item.location.regionName}}</li>
+                            <p>Дом в посёлке *{{item.location.districtName}}* {{item.specification.area}}км ID {{item.id}}</p>
+                            <h4>${{item.saleOffer.multiCurrencyPrice.usd}}</h4>
+                            <v-icon name="check-square"></v-icon>  {{item.specification.area}}км
+                            <v-icon name="home"></v-icon>  {{item.specification.bedrooms}}м
+
+
                         </b-card-text>
                     </b-card>
                 </b-col>
             </b-row>
-        </b-container>
+
+            <div style="position: center">
+                <v-pagination v-model="currentPage.page"
+                              aria-controls="my-table"
+                              :page-count="limit"></v-pagination>
+            </div>
+
+        </div>
 
 
         <div class="vld-parent">
@@ -49,12 +56,6 @@
 
 
 
-        <div>
-            <p>Current page: {{ currentPage }}</p>
-            <v-pagination v-model="currentPage"
-                          aria-controls="my-table"
-                          :page-count="limit"></v-pagination>
-        </div>
 
 
     </div>
@@ -83,20 +84,12 @@
                 limit:32,
                 totalCard:[],
                 perPage: 10,
-                currentPage: 1,
-                bootstrapPaginationClasses: {
-                    ul: 'pagination',
-                    li: 'page-item',
-                    liActive: 'active',
-                    liDisable: 'disabled',
-                    button: 'page-link'
+                currentPage: {
+                    page: 1,
+                    limit: 20,
                 },
-                paginationAnchorTexts: {
-                    first: 'First',
-                    prev: 'Previous',
-                    next: 'Next',
-                    last: 'Last'
-                },  isLoading: false,
+                isBack:false,
+                isLoading: false,
                 dataCards: [],
                 statusMassage: ''
             }
@@ -122,6 +115,7 @@
         },
 
         created() {
+            this.isBack = true;
             this.isLoading = true;
             debugger
             this.getPaginationStore();
@@ -136,6 +130,7 @@
                 handler(value) {
                     debugger
                     this.isLoading = false;
+                    this.isBack = false;
                     if (this.firstList.length === 1) {
                         this.statusMassage = 'Error'
                     } else {
@@ -147,6 +142,8 @@
                                 location: list.location,
                                 images: list.images,
                                 saleOffer: list.saleOffer,
+                                specification: list.specification,
+
 
                             };
                         });
@@ -157,12 +154,13 @@
                 }
             },
 
-            'currentPage': {
+            'currentPage.page': {
 
                 handler(value) {
                     debugger
                     this.getSecondsPage(value);
                     console.log(this.totalCard)
+                    this.isLoading = true;
 
                 }
 
@@ -196,6 +194,11 @@
         background-color: #FF4C4E;
 
     }
+
+    svg {
+        height: 15px;
+    }
+
 
     .mbordeer {
         display: none;

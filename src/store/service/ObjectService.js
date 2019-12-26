@@ -28,7 +28,7 @@ const ObjectService = {
 
         let arr = new Array();
 
-        return axios.get(`https://api.jqestate.ru/v1/properties/country?pagination[offset]=1&pagination[limit]=10`)
+        return axios.get(`https://api.jqestate.ru/v1/properties/country?pagination[offset]=1&pagination[limit]=6`)
             .then(response => {
                 debugger
                 if (response.status == 206) {
@@ -52,7 +52,7 @@ const ObjectService = {
     getSecondsPage(payload) {
 
         let arr = new Array();
-        return axios.get(`https://api.jqestate.ru/v1/properties/country?pagination[offset]=20&pagination[limit]=${payload}`)
+        return axios.get(`https://api.jqestate.ru/v1/properties/country?pagination[offset]=32&pagination[limit]=${payload}`)
             .then(response => {
                 debugger
                 if (response.status == 206) {
